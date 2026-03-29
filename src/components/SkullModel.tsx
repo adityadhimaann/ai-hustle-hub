@@ -9,81 +9,116 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function SkullModel() {
-  const meshRef = useRef<THREE.Group>(null);
-  const materialRef = useRef<THREE.MeshPhysicalMaterial>(null);
-
-  // Use a custom geometry to simulate an abstract high-tech "Skull/Brain"
-  // For production, replace this with `const { scene } = useGLTF('/path/to/skull.glb')`
-  const geometry = new THREE.IcosahedronGeometry(1.2, 4);
+  const groupRef = useRef<THREE.Group>(null);
+  
+  // Material refs for animating
+  const craniumMatRef = useRef<THREE.MeshStandardMaterial>(null);
+  const eyeMatRefLeft = useRef<THREE.MeshBasicMaterial>(null);
+  const eyeMatRefRight = useRef<THREE.MeshBasicMaterial>(null);
+  const wireMatRef = useRef<THREE.MeshStandardMaterial>(null);
 
   useEffect(() => {
-    // We bind the scroll to the GSAP animations using matchMedia or global contexts
-    // Creating a ScrollTrigger timeline that scrubs through scroll
-    if (!meshRef.current || !materialRef.current) return;
+    if (!groupRef.current || !eyeMatRefLeft.current || !eyeMatRefRight.current || !craniumMatRef.current) return;
 
-    const sections = ["#hero", "#discovery", "#transformation", "#monetization", "#cta"];
-    
-    // We create a singular global timeline for the mesh, driven by body scroll
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: "body",
         start: "top top",
         end: "bottom bottom",
-        scrub: 1, // Smooth scrubbing
+        scrub: 1,
       },
     });
 
-    // 1. From Hero -> Discovery
-    tl.to(meshRef.current.position, { x: 1.5, y: -0.5, z: 1, duration: 1 }, 0)
-      .to(meshRef.current.rotation, { y: Math.PI / 4, x: -0.2, duration: 1 }, 0)
-      .to(materialRef.current, { wireframe: true, emissiveIntensity: 2, duration: 1 }, 0);
+    // 1. Hero -> Discovery
+    tl.to(groupRef.current.position, { x: 1.5, y: -0.5, z: 1, duration: 1 }, 0)
+      .to(groupRef.current.rotation, { y: Math.PI / 6, x: -0.1, duration: 1 }, 0)
+      .to([eyeMatRefLeft.current.color, eyeMatRefRight.current.color], { r: 0.0, g: 0.94, b: 1.0, duration: 1 }, 0); // Cyan
 
     // 2. Discovery -> Transformation
-    tl.to(meshRef.current.position, { x: 0, y: 1, z: 2, duration: 1 }, 1)
-      .to(meshRef.current.rotation, { y: -Math.PI / 2, x: 0.5, duration: 1 }, 1)
-      .to(materialRef.current.color, { r: 0.48, g: 0.0, b: 1.0, duration: 1 }, 1) // Purple tint (#7a00ff)
-      .to(materialRef.current.emissive, { r: 0.48, g: 0.0, b: 1.0, duration: 1 }, 1);
+    tl.to(groupRef.current.position, { x: 0, y: 1, z: 1.5, duration: 1 }, 1)
+      .to(groupRef.current.rotation, { y: -Math.PI / 4, x: 0.2, duration: 1 }, 1)
+      .to([eyeMatRefLeft.current.color, eyeMatRefRight.current.color], { r: 0.48, g: 0.0, b: 1.0, duration: 1 }, 1) // Purple
+      .to(craniumMatRef.current, { wireframe: true, duration: 1 }, 1); // Reveal internal structure mindset
 
     // 3. Transformation -> Monetization
-    tl.to(meshRef.current.position, { x: -1.5, y: -1, z: 0.5, duration: 1 }, 2)
-      .to(meshRef.current.rotation, { y: Math.PI, x: 0.1, duration: 1 }, 2)
-      .to(materialRef.current, { wireframe: false, roughness: 0.1, metalness: 1, duration: 1 }, 2)
-      .to(materialRef.current.color, { r: 0.0, g: 0.94, b: 1.0, duration: 1 }, 2) // Cyan tint
+    tl.to(groupRef.current.position, { x: -1.5, y: -1, z: 0.5, duration: 1 }, 2)
+      .to(groupRef.current.rotation, { y: Math.PI / 2, x: 0.1, duration: 1 }, 2)
+      .to(craniumMatRef.current, { wireframe: false, roughness: 0.1, duration: 1 }, 2)
+      .to([eyeMatRefLeft.current.color, eyeMatRefRight.current.color], { r: 1.0, g: 0.0, b: 0.3, duration: 1 }, 2); // Aggressive Neon Red/Pink
 
     // 4. Monetization -> CTA
-    tl.to(meshRef.current.position, { x: 0, y: 0, z: 3, duration: 1 }, 3)
-      .to(meshRef.current.rotation, { y: Math.PI * 2, x: 0, duration: 1 }, 3)
-      .to(materialRef.current.emissive, { r: 1.0, g: 1.0, b: 1.0, duration: 1 }, 3);
+    tl.to(groupRef.current.position, { x: 0, y: 0, z: 2.5, duration: 1 }, 3)
+      .to(groupRef.current.rotation, { y: Math.PI * 2, x: 0, duration: 1 }, 3)
+      .to([eyeMatRefLeft.current.color, eyeMatRefRight.current.color], { r: 0.0, g: 0.94, b: 1.0, duration: 1 }, 3);
 
     return () => {
       tl.kill();
     };
   }, []);
 
-  // Continuous subtle idle animation
+  // Continuous idle floating animation
   useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y += 0.002;
-      meshRef.current.position.y += Math.sin(state.clock.elapsedTime * 2) * 0.002;
+    if (groupRef.current) {
+      groupRef.current.rotation.y += 0.001;
+      groupRef.current.position.y += Math.sin(state.clock.elapsedTime * 1.5) * 0.0015;
     }
   });
 
   return (
-    <group ref={meshRef}>
-      <mesh geometry={geometry}>
-        <meshPhysicalMaterial
-          ref={materialRef}
-          color="#00f0ff"
-          emissive="#00f0ff"
-          emissiveIntensity={0.5}
-          metalness={0.8}
-          roughness={0.2}
-          wireframe={false}
-          transmission={0.5}
-          thickness={1}
-        />
+    <group ref={groupRef}>
+      {/* Cranium / Top Head */}
+      <mesh position={[0, 0.4, 0]}>
+        <boxGeometry args={[1.2, 1.0, 1.4]} />
+        <meshStandardMaterial ref={craniumMatRef} color="#050505" metalness={0.9} roughness={0.3} />
       </mesh>
-      {/* Abstract particle orbit or halo could be added here */}
+      
+      {/* Lower Jaw */}
+      <mesh position={[0, -0.3, 0.2]}>
+        <boxGeometry args={[0.9, 0.5, 1.1]} />
+        <meshStandardMaterial color="#0a0a0a" metalness={0.8} roughness={0.4} />
+      </mesh>
+
+      {/* Neck Base */}
+      <mesh position={[0, -0.7, -0.2]}>
+        <cylinderGeometry args={[0.4, 0.5, 0.6, 16]} />
+        <meshStandardMaterial color="#000000" metalness={1} roughness={0.5} />
+      </mesh>
+
+      {/* Cheeks / Side panels */}
+      <mesh position={[-0.65, 0.1, 0]}>
+        <boxGeometry args={[0.1, 0.6, 0.8]} />
+        <meshStandardMaterial color="#080808" metalness={0.8} roughness={0.2} />
+      </mesh>
+      <mesh position={[0.65, 0.1, 0]}>
+        <boxGeometry args={[0.1, 0.6, 0.8]} />
+        <meshStandardMaterial color="#080808" metalness={0.8} roughness={0.2} />
+      </mesh>
+
+      {/* Eye Sockets (Dark indents) */}
+      <mesh position={[-0.3, 0.4, 0.71]}>
+        <boxGeometry args={[0.4, 0.25, 0.1]} />
+        <meshStandardMaterial color="#000000" roughness={1} />
+      </mesh>
+      <mesh position={[0.3, 0.4, 0.71]}>
+        <boxGeometry args={[0.4, 0.25, 0.1]} />
+        <meshStandardMaterial color="#000000" roughness={1} />
+      </mesh>
+
+      {/* Glowing Eyes */}
+      <mesh position={[-0.3, 0.4, 0.73]}>
+        <sphereGeometry args={[0.08, 16, 16]} />
+        <meshBasicMaterial ref={eyeMatRefLeft} color="#00f0ff" />
+      </mesh>
+      <mesh position={[0.3, 0.4, 0.73]}>
+        <sphereGeometry args={[0.08, 16, 16]} />
+        <meshBasicMaterial ref={eyeMatRefRight} color="#00f0ff" />
+      </mesh>
+
+      {/* Neural Cables (Back of Head) */}
+      <mesh position={[0, 0, -0.7]}>
+        <cylinderGeometry args={[0.2, 0.2, 1.2, 16]} />
+        <meshStandardMaterial ref={wireMatRef} color="#020202" metalness={0.6} roughness={0.8} />
+      </mesh>
     </group>
   );
 }

@@ -11,7 +11,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-          className="text-6xl md:text-8xl font-black font-orbitron uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-[#00f0ff] to-white mb-6 drop-shadow-[0_0_15px_rgba(0,240,255,0.8)]"
+          className="text-6xl md:text-8xl font-black font-orbitron uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-[#00f0ff] to-gray-400 mb-6 drop-shadow-[0_0_5px_rgba(0,240,255,0.4)]"
         >
           AI Hustle Hub
         </motion.h1>

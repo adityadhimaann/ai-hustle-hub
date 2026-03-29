@@ -20,7 +20,7 @@ export default function MonetizationSection() {
             {points.map((p, i) => (
               <div 
                 key={i} 
-                className="gsap-fade-in opacity-0 glass-card px-8 py-5 w-auto rounded-xl flex items-center justify-between gap-12 group cursor-pointer hover:bg-[#00f0ff]/10"
+                className="gsap-fade-in opacity-0 glass-card px-8 py-5 w-auto rounded-xl flex items-center justify-between gap-12 group cursor-pointer hover:bg-[#00f0ff]/5 border border-white/5 hover:border-[#00f0ff]/30"
               >
                 <div className="text-xl font-orbitron text-gray-300 group-hover:text-white transition-colors duration-300">{p.title}</div>
                 <div className="text-3xl font-black text-[#00f0ff] tracking-widest group-hover:scale-110 transition-transform duration-300">{p.val}</div>

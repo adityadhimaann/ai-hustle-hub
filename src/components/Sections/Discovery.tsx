@@ -26,7 +26,7 @@ export default function DiscoverySection() {
     >
       <div className="container mx-auto px-6 lg:px-20 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center pointer-events-auto">
         <div className="gsap-fade-in opacity-0">
-          <h2 className="text-4xl md:text-6xl font-orbitron font-bold text-white mb-6 shadow-cyan-500/50">
+          <h2 className="text-4xl md:text-6xl font-orbitron font-bold text-white mb-6">
             Uncover the <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00f0ff] to-[#7a00ff]">Matrix</span>
           </h2>
           <p className="text-lg text-gray-400 font-light max-w-lg mb-8 leading-relaxed">
@@ -38,10 +38,10 @@ export default function DiscoverySection() {
           {cards.map((card, i) => (
             <div
               key={i}
-              className="glass-card gsap-fade-in opacity-0 p-8 rounded-2xl transform transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(0,240,255,0.4)] cursor-pointer group"
+              className="glass-card gsap-fade-in opacity-0 p-8 rounded-2xl transform transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-[0_0_15px_rgba(0,240,255,0.2)] cursor-pointer group border border-white/5 hover:border-[#00f0ff]/50"
               style={{ transitionDelay: `${i * 100}ms` }}
             >
-              <div className="mb-4 p-4 rounded-xl bg-gradient-to-br from-[#00f0ff]/10 to-transparent w-max group-hover:from-[#00f0ff]/30 transition-colors duration-500">
+              <div className="mb-4 p-4 rounded-xl bg-black w-max border border-white/10 group-hover:border-[#00f0ff]/30 transition-colors duration-500">
                 {card.icon}
               </div>
               <h3 className="text-2xl font-bold font-orbitron text-white mb-2">{card.title}</h3>

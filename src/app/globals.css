@@ -3,7 +3,7 @@
 @theme {
   --color-primary: #00f0ff;
   --color-secondary: #7a00ff;
-  --color-background: #050510;
+  --color-background: #000000;
   --color-neon-blue: #00f0ff;
   --color-neon-purple: #7a00ff;
   --color-neon-cyan: #0ff0fc;
@@ -42,7 +42,7 @@
     left: 50%;
     width: 300%;
     height: 300%;
-    background: radial-gradient(circle, var(--color-primary) 10%, transparent 60%);
+    background: radial-gradient(circle, var(--color-primary) 5%, transparent 30%);
     transition: transform 0.5s ease-out;
     transform: translate(-50%, -50%) scale(0);
     z-index: 0;
@@ -50,7 +50,7 @@
   }
   .magnetic-button:hover::before {
     transform: translate(-50%, -50%) scale(1);
-    opacity: 0.3;
+    opacity: 0.15;
   }
 }
 
