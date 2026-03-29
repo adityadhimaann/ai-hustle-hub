@@ -6,7 +6,7 @@ export default function HeroSection() {
       id="hero"
       className="relative min-h-[120vh] flex flex-col justify-center items-center pointer-events-none"
     >
-      <div className="container mx-auto px-6 z-10 text-center pointer-events-auto mix-blend-exclusion">
+      <div className="container mx-auto px-6 z-10 text-center pointer-events-auto">
         <motion.p
           initial={{ opacity: 0, letterSpacing: "0em" }}
           animate={{ opacity: 1, letterSpacing: "0.5em" }}

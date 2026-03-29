@@ -25,8 +25,8 @@ export default function StepsSection() {
                 </div>
                 <div className="text-4xl font-black font-orbitron text-white/10 group-hover:text-white/20 transition-colors duration-500">{step.num}</div>
               </div>
-              <h3 className="text-2xl font-bold font-orbitron text-white mb-3">{step.title}</h3>
-              <p className="text-gray-400 font-inter leading-relaxed">{step.desc}</p>
+              <h3 className="text-2xl font-bold font-orbitron text-neutral-900 mb-3">{step.title}</h3>
+              <p className="text-neutral-700 font-inter leading-relaxed">{step.desc}</p>
             </div>
           ))}
         </div>
