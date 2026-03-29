@@ -106,28 +106,38 @@ export default function CyberSkull() {
       },
     });
 
-    // 1. Hero -> Awakening (Assembly)
+    // 1. Hero -> Clarity (Assembly)
     tl.to(uniforms.uAssemble, { value: 1, duration: 2, ease: "power2.inOut" }, 0)
       .to(pointsRef.current.position, { y: 0.5, z: 1, duration: 2 }, 0)
       .to(pointsRef.current.rotation, { y: Math.PI / 4, duration: 2 }, 0);
 
-    // 2. Awakening -> Intelligence Expansion
+    // 2. Clarity -> Steps (Intelligence)
     tl.to(pointsRef.current.scale, { x: 1.2, y: 1.2, z: 1.2, duration: 2 }, 2)
       .to(uniforms.uColor1.value, { r: 0.48, g: 0.0, b: 1.0, duration: 2 }, 2) // Shift to Purple
-      .to(uniforms.uColor2.value, { r: 1.0, g: 0.0, b: 0.5, duration: 2 }, 2);
+      .to(uniforms.uColor2.value, { r: 0.4, g: 0.0, b: 0.8, duration: 2 }, 2)
+      .to(pointsRef.current.position, { x: 1.5, y: -0.5, duration: 2 }, 2);
 
-    // 3. Intelligence Expansion -> Monetization Engine
+    // 3. Steps -> Tools (Cyan AI Tooling)
     tl.to(pointsRef.current.rotation, { y: Math.PI, x: 0.2, duration: 2 }, 4)
-      .to(pointsRef.current.position, { x: -1.5, y: -0.5, duration: 2 }, 4)
-      .to(uniforms.uColor1.value, { r: 0.0, g: 0.94, b: 1.0, duration: 2 }, 4); // Back to Cyan
+      .to(pointsRef.current.position, { x: -1.5, y: 0.5, duration: 2 }, 4)
+      .to(uniforms.uColor1.value, { r: 0.0, g: 0.94, b: 1.0, duration: 2 }, 4)
+      .to(uniforms.uColor2.value, { r: 0.0, g: 0.5, b: 1.0, duration: 2 }, 4);
 
-    // 4. Monetization -> Control & Mastery
-    tl.to(pointsRef.current.position, { x: 0, y: 0, z: 2, duration: 2 }, 6)
-      .to(pointsRef.current.rotation, { y: Math.PI * 2, duration: 2 }, 6);
+    // 4. Tools -> Earning (Monetization Red Phase)
+    tl.to(pointsRef.current.position, { x: 1.5, y: -0.5, z: 0.5, duration: 2 }, 6)
+      .to(pointsRef.current.rotation, { y: Math.PI * 1.5, duration: 2 }, 6)
+      .to(uniforms.uColor1.value, { r: 1.0, g: 0.0, b: 0.23, duration: 2 }, 6) // Match #ff003c
+      .to(uniforms.uColor2.value, { r: 1.0, g: 0.4, b: 0.0, duration: 2 }, 6);
 
-    // 5. Control -> Dissolve (Footer)
-    tl.to(uniforms.uDissolve, { value: 1, duration: 2, ease: "power3.in" }, 8)
-      .to(pointsRef.current.position, { y: 2, z: -5, duration: 2 }, 8);
+    // 5. Earning -> CTA (Centering intensity)
+    tl.to(pointsRef.current.position, { x: 0, y: 0, z: 2, duration: 2 }, 8)
+      .to(pointsRef.current.rotation, { y: Math.PI * 2, duration: 2 }, 8)
+      .to(uniforms.uColor1.value, { r: 0.48, g: 0.0, b: 1.0, duration: 2 }, 8) // Purple conversion
+      .to(uniforms.uColor2.value, { r: 0.0, g: 0.94, b: 1.0, duration: 2 }, 8);
+
+    // 6. CTA -> Footer (Dissolve)
+    tl.to(uniforms.uDissolve, { value: 1, duration: 2, ease: "power3.in" }, 10)
+      .to(pointsRef.current.position, { y: 3, z: -5, duration: 2 }, 10);
 
     return () => {
       tl.kill();
