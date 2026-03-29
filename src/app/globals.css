@@ -1,26 +1,72 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-primary: #00f0ff;
+  --color-secondary: #7a00ff;
+  --color-background: #050510;
+  --color-neon-blue: #00f0ff;
+  --color-neon-purple: #7a00ff;
+  --color-neon-cyan: #0ff0fc;
+
+  --font-inter: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-orbitron: var(--font-orbitron), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html, body {
+    @apply m-0 p-0 text-white bg-background font-inter overflow-x-hidden;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 10px var(--color-primary), 0 0 20px var(--color-primary);
+  }
+  .text-glow-purple {
+    text-shadow: 0 0 10px var(--color-secondary), 0 0 20px var(--color-secondary);
+  }
+  .glass-card {
+    background: rgba(10, 10, 25, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  }
+  .magnetic-button {
+    @apply relative overflow-hidden transition-all duration-300;
+  }
+  .magnetic-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(circle, var(--color-primary) 10%, transparent 60%);
+    transition: transform 0.5s ease-out;
+    transform: translate(-50%, -50%) scale(0);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .magnetic-button:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.3;
+  }
+}
+
+/* Lenis scrolling */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
