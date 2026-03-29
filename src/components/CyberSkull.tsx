@@ -60,7 +60,7 @@ void main() {
   float alpha = smoothstep(0.5, 0.1, dist) * vGlow;
 
   // Mix between neon cyan and electric purple based on screen position
-  vec3 finalColor = mix(uColor1, uColor2, gl_PointCoord.y);
+  vec3 finalColor = mix(uColor1, uColor2, gl_PointCoord.y) * 2.5; // Boosted magnitude for PostProcessing Bloom
 
   gl_FragColor = vec4(finalColor, alpha);
 }

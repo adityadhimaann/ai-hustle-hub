@@ -3,6 +3,9 @@ import { Inter, Orbitron } from 'next/font/google';
 import './globals.css';
 import SmoothScrolling from '@/components/SmoothScrolling';
 
+import BootLoader from '@/components/BootLoader';
+import CustomCursor from '@/components/CustomCursor';
+
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const orbitron = Orbitron({ subsets: ['latin'], variable: '--font-orbitron' });
 
@@ -21,7 +24,9 @@ export default function RootLayout({
       <head>
         <meta name="theme-color" content="#000000" />
       </head>
-      <body className="bg-black text-white selection:bg-cyan-500/30">
+      <body className="bg-black text-white selection:bg-cyan-500/30 cursor-none">
+        <BootLoader />
+        <CustomCursor />
         <SmoothScrolling>
           {children}
         </SmoothScrolling>
