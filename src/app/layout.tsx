@@ -9,8 +9,19 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const orbitron = Orbitron({ subsets: ['latin'], variable: '--font-orbitron' });
 
 export const metadata: Metadata = {
-  title: 'AI Hustle Hub',
-  description: 'Build. Automate. Earn. Turn Ideas into Income with AI',
+  title: 'AI Hustle Hub | Master AI Tools & Build Passive Income',
+  description: 'The ultimate platform for students and beginners to learn AI tools, discover side hustles, and automate workflows for passive online income. Start your AI journey today.',
+  keywords: 'AI Hustle, Passive Income, AI Tools, Side Hustles, Automation, ChatGPT, Midjourney, Learn AI earning',
+  openGraph: {
+    title: 'AI Hustle Hub | Master AI Tools & Build Passive Income',
+    description: 'Learn to use AI tools for earning money online. Discover side hustles and automation strategies.',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AI Hustle Hub | AI Side Hustles',
+    description: 'Master the future of earning with AI tools and automation.',
+  }
 };
 
 export default function RootLayout({
